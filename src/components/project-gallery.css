@@ -1,0 +1,49 @@
+.project-gallery{--gallery-accent:#d9b885;padding:68px 0 75px;border-top:1px solid #435359;border-bottom:1px solid #435359}
+.station-page--purple .project-gallery{--gallery-accent:#d6b9de}
+.station-page--gold .project-gallery{--gallery-accent:#e3c18a}
+.station-page--clay .project-gallery{--gallery-accent:#e4b192}
+.station-page--sky .project-gallery{--gallery-accent:#bcd9de}
+.project-gallery__heading{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:27px}
+.project-gallery__heading h2{font-size:clamp(32px,3.5vw,50px);margin:14px 0 10px}
+.project-gallery__heading h2 em{color:var(--gallery-accent)}
+.project-gallery__heading p:not(.kicker){color:#b8c5c0;line-height:1.7;font-size:13px;max-width:720px;margin:0}
+.project-gallery__heading>svg{flex:none;color:var(--gallery-accent)}
+.project-gallery__item{margin:0;min-width:0;overflow:hidden;border:1px solid #526267;background:#1a282e}
+.project-gallery__item--featured{display:grid;grid-template-columns:minmax(0,55%) minmax(0,45%);min-height:285px}
+.project-gallery__open{appearance:none;display:block;position:relative;width:100%;height:100%;min-height:210px;aspect-ratio:16/10;padding:0;border:0;background:#32434a;overflow:hidden;cursor:zoom-in}
+.project-gallery__open img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .3s ease}
+.project-gallery__open:hover img{transform:scale(1.04)}
+.project-gallery__open:focus-visible{outline:3px solid var(--gallery-accent);outline-offset:-5px;z-index:1}
+.project-gallery__zoom{position:absolute;right:13px;bottom:13px;display:flex;align-items:center;gap:7px;color:#fff1d6;background:#17252bdd;padding:8px 10px;font-size:11px;font-weight:700}
+.project-gallery__item figcaption{padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.project-gallery__item figcaption>span{font-size:9px;letter-spacing:.14em;line-height:1.5;font-weight:800;color:var(--gallery-accent)}
+.project-gallery__item h3{font-family:Manrope,sans-serif;letter-spacing:-.04em;font-size:clamp(21px,2.2vw,31px);margin:13px 0 9px;line-height:1.25}
+.project-gallery__item p{color:#bdcac3;font-size:12px;line-height:1.7;margin:0 0 9px}
+.project-gallery__item .project-gallery__lesson{color:#eee8d8;font-size:13px}
+.project-gallery__more{margin-top:14px}
+.project-gallery__more>summary{cursor:pointer;border:1px solid #728483;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 19px;color:#f1d3a4;font-size:12px;font-weight:700;list-style:none;min-height:52px}
+.project-gallery__more>summary::-webkit-details-marker{display:none}
+.project-gallery__more>summary:hover{background:#284047}
+.project-gallery__more[open]>summary svg{transform:rotate(45deg)}
+.project-gallery__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:13px}
+.project-gallery__grid .project-gallery__open{height:220px;min-height:0;aspect-ratio:16/9}
+.project-gallery__grid .project-gallery__item figcaption{min-height:185px;padding:20px}
+.project-gallery__grid .project-gallery__item h3{font-size:20px}
+.project-gallery__viewer{width:min(1100px,calc(100vw - 26px));max-width:none;max-height:calc(100dvh - 26px);padding:0;border:1px solid #bca68b;color:#f8f1e8;background:#15242c;overflow:auto;box-shadow:0 30px 90px #050d12}
+.project-gallery__viewer:not([open]){display:none}
+.project-gallery__viewer::backdrop{background:rgba(5,11,16,.87)}
+.project-gallery__viewer-top{display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:2;background:#1e3039;padding:10px 18px;color:#e8d1aa;font-size:10px;letter-spacing:.13em;font-weight:800}
+.project-gallery__viewer-top button,.project-gallery__viewer-bottom nav button{min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #a58e77;background:#263c45;color:#f2dfbd;font-size:12px;font-weight:700;cursor:pointer}
+.project-gallery__viewer-top button:hover,.project-gallery__viewer-bottom nav button:hover{background:#375260}
+.project-gallery__viewer-image{display:grid;place-items:center;min-height:190px;background:#0d1920}
+.project-gallery__viewer-image img{display:block;width:100%;height:auto;max-height:62dvh;object-fit:contain}
+.project-gallery__viewer-bottom{padding:18px 22px 22px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.project-gallery__viewer-bottom>div{min-width:0;max-width:710px}
+.project-gallery__viewer-bottom>div>span{color:#ebce9f;font-size:10px;letter-spacing:.12em;font-weight:800}
+.project-gallery__viewer-bottom h2{font-family:Manrope,sans-serif;letter-spacing:-.04em;font-size:clamp(23px,2.5vw,33px);margin:10px 0}
+.project-gallery__viewer-bottom p{font-size:12px;color:#cbd7d1;line-height:1.65;margin:0 0 7px}
+.project-gallery__viewer-bottom nav{display:flex;gap:8px;flex:none}
+
+@media(max-width:760px){.project-gallery{padding:52px 0}.project-gallery__item--featured{grid-template-columns:1fr}.project-gallery__item--featured .project-gallery__open{height:290px}.project-gallery__grid{grid-template-columns:1fr}.project-gallery__grid .project-gallery__item{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%)}.project-gallery__grid .project-gallery__open{height:100%;min-height:215px}.project-gallery__grid .project-gallery__item figcaption{min-height:215px}.project-gallery__viewer-image img{max-height:55dvh}}
+@media(max-width:460px){.project-gallery__heading>svg{display:none}.project-gallery__item--featured .project-gallery__open{height:220px}.project-gallery__grid .project-gallery__item{display:block}.project-gallery__grid .project-gallery__open{height:205px;min-height:0}.project-gallery__grid .project-gallery__item figcaption{min-height:0}.project-gallery__viewer-bottom{align-items:stretch;flex-direction:column}.project-gallery__viewer-bottom nav{justify-content:space-between}.project-gallery__viewer-image img{max-height:48dvh}}
+@media(prefers-reduced-motion:reduce){.project-gallery__open img{transition:none}.project-gallery__open:hover img{transform:none}}

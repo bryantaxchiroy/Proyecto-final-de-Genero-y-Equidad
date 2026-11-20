@@ -1,0 +1,29 @@
+import { useEffect, useRef, useState } from 'react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Check, FileText, Folder, Sparkles } from 'lucide-react'
+import { violenceArchiveContexts, violenceMoments, violenceSources } from '../data/violenceHistory'
+import './memory-archive.css'
+
+export function MemoryArchive({ introduction }: { introduction: string }) {
+  const [selected, setSelected] = useState<number | null>(null)
+  const [visited, setVisited] = useState<Set<string>>(() => new Set())
+  const recordHeading = useRef<HTMLHeadingElement>(null)
+  const record = selected === null ? null : violenceMoments[selected]
+
+  const openRecord = (index: number) => {
+    setSelected(index)
+    setVisited(current => new Set(current).add(violenceMoments[index].year))
+  }
+
+  useEffect(() => {
+    if (selected !== null) recordHeading.current?.focus()
+  }, [selected])
+
+  return <section className="memory-archive" aria-labelledby="memory-archive-title">
+    <div className="memory-archive__header"><div><p className="kicker"><span className="kicker__dot" /> 02 · EXPLORACIÓN HISTÓRICA</p><h2 id="memory-archive-title">Archivo de la Memoria:<br /><em>historias que no deben olvidarse.</em></h2><p>{introduction} Abre los cuatro expedientes en el orden que prefieras.</p></div><div className="memory-archive__seal" aria-hidden="true"><BookOpen size={35} strokeWidth={1.1} /><span>MEMORIA<br />Y DIGNIDAD</span></div></div>
+    <div className="memory-archive__index"><span>CATÁLOGO · GUATEMALA</span><span role="status" aria-live="polite">{visited.size} de {violenceMoments.length} expedientes explorados</span></div>
+    <div className="memory-archive__folders" role="group" aria-label="Expedientes del Archivo de la Memoria">{violenceMoments.map((moment, index) => <button type="button" key={moment.year} className={`memory-archive__folder${selected === index ? ' memory-archive__folder--selected' : ''}${visited.has(moment.year) ? ' memory-archive__folder--visited' : ''}`} aria-pressed={selected === index} aria-controls="memory-record" onClick={() => openRecord(index)}><span className="memory-archive__folder-tab" aria-hidden="true" /><span className="memory-archive__folder-top"><span>EXPEDIENTE {String(index + 1).padStart(2, '0')}</span>{visited.has(moment.year) ? <Check size={17} aria-hidden="true" /> : <Folder size={18} aria-hidden="true" />}</span><strong>{moment.year}</strong><span className="memory-archive__folder-name">{moment.label}</span><span className="memory-archive__folder-status">{visited.has(moment.year) ? 'EXPLORADO' : 'ABRIR EXPEDIENTE'} <ArrowUpRight size={16} aria-hidden="true" /></span></button>)}</div>
+    <div id="memory-record" className="memory-archive__record-area">{record && selected !== null ? <article className="memory-archive__record" key={record.year} aria-labelledby="memory-record-title"><div className="memory-archive__record-art" aria-hidden="true"><div className="memory-archive__record-ring"/><FileText size={104} strokeWidth={.85}/><span>FICHA {String(selected + 1).padStart(2, '0')} / {String(violenceMoments.length).padStart(2, '0')}</span></div><div className="memory-archive__paper"><div className="memory-archive__paper-top"><span>FICHA EDUCATIVA · REPRESENTACIÓN GRÁFICA</span><span>NO ES UN DOCUMENTO ORIGINAL</span></div><div className="memory-archive__paper-title"><span>{record.year} · {record.label.toUpperCase()}</span><h3 id="memory-record-title" ref={recordHeading} tabIndex={-1}>{record.title}</h3></div><div className="memory-archive__entry"><h4>CONTEXTO HISTÓRICO</h4><p>{violenceArchiveContexts[record.year]}</p></div><div className="memory-archive__entry memory-archive__entry--fact"><h4>HECHO DOCUMENTADO</h4><p>{record.fact}</p></div><div className="memory-archive__entry memory-archive__entry--reading"><h4>LECTURA EDUCATIVA · MUSEO</h4><p>{record.interpretation}</p></div><div className="memory-archive__prompt"><span>UNA PREGUNTA PARA REFLEXIONAR</span><p>{record.question}</p></div><div className="memory-archive__references"><h4><BookOpen size={16} aria-hidden="true" /> FUENTES DE ESTE EXPEDIENTE</h4><ul>{record.sourceIds.map(id => { const source = violenceSources.find(item => item.id === id); return source ? <li key={id}><a href={source.url} target="_blank" rel="noopener noreferrer" aria-label={`Abrir ${source.title} en una nueva pestaña`}>{source.author}: {source.title} <ArrowUpRight size={15} aria-hidden="true" /></a><span>{source.note}</span></li> : null })}</ul></div></div></article> : <div className="memory-archive__empty"><div className="memory-archive__empty-icon" aria-hidden="true"><Folder size={60} strokeWidth={1.1}/><Sparkles size={23}/></div><div><span>EL ARCHIVO ESTÁ ABIERTO</span><h3>Elige un expediente<br />para comenzar.</h3><p>Encontrarás hechos documentados, una lectura educativa y las fuentes de cada ficha. Las ilustraciones de esta sala son simbólicas.</p></div></div>}</div>
+    {record && selected !== null && <div className="memory-archive__navigation"><span>EXPEDIENTE {String(selected + 1).padStart(2, '0')} / {String(violenceMoments.length).padStart(2, '0')}</span><div><button type="button" onClick={() => openRecord(selected - 1)} disabled={selected === 0}><ArrowLeft size={18} aria-hidden="true" /> Anterior</button><button type="button" onClick={() => openRecord(selected + 1)} disabled={selected === violenceMoments.length - 1}>Siguiente <ArrowRight size={18} aria-hidden="true" /></button></div></div>}
+    <div className="memory-archive__closing"><span>MEMORIA · RESPETO · NO REPETICIÓN</span><p>{visited.size === violenceMoments.length ? 'Has abierto los cuatro expedientes. Recordar lo ocurrido también implica escuchar sin juzgar y reconocer que la violencia nunca fue responsabilidad de quienes la sufrieron.' : 'Puedes abrir cada expediente a tu propio ritmo. La memoria histórica nos invita a escuchar con respeto y a pensar en la dignidad de las personas afectadas.'}</p></div>
+  </section>
+}

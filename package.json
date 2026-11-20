@@ -1,0 +1,30 @@
+{
+  "name": "huellas-museo-vivo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "check:stations": "node scripts/check-stations.mjs",
+    "check:gender-game": "node scripts/check-gender-game.mjs",
+    "check:protective-game": "node scripts/check-protective-game.mjs",
+    "check:opportunity-game": "node scripts/check-opportunity-game.mjs",
+    "check:cultural-puzzle": "node scripts/check-cultural-puzzle.mjs",
+    "check:rights-route": "node scripts/check-rights-route.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.5"
+  }
+}
