@@ -13,6 +13,12 @@ npm run dev
 
 Abre la dirección local que muestra Vite. Para generar la versión de despliegue: `npm run build`. La carpeta `dist/` puede publicarse en un alojamiento estático configurado para devolver `index.html` en las rutas del museo.
 
+## Publicar en GitHub Pages
+
+El workflow `.github/workflows/deploy-pages.yml` compila al actualizar `main` (o al ejecutarse manualmente) y publica **solo `dist/`**. En GitHub, selecciona **Settings → Pages → Build and deployment → Source: GitHub Actions**. La URL del museo es `https://bryantaxchiroy.github.io/Proyecto-final-de-Genero-y-Equidad/`.
+
+La compilación utiliza el prefijo `/Proyecto-final-de-Genero-y-Equidad/` para recursos y rutas; `npm run dev` conserva `/` para desarrollo local. El archivo `dist/404.html`, generado junto con el build, permite que GitHub Pages sirva la aplicación al abrir o recargar enlaces internos como `/estacion/genero` y `/sala-final`. Pages responde con estado HTTP 404 en esas rutas directas, pero React Router conserva la URL y muestra su contenido.
+
 Para comprobar las cinco estaciones, la secuencia del recorrido y las referencias de las experiencias documentadas: `npm run check:stations`.
 
 Para verificar las reglas, los bloqueos, la puntuación y los cinco niveles de resultados del juego de Género: `npm run check:gender-game`.
